@@ -1,3 +1,4 @@
+
 About
 
 Everything goes digital these days, and so does money. Today, most people have credit cards, which save us time, energy and nerves. From not having to carry a wallet full of cash to consumer protection, cards make our lives easier in many ways. In this project, you will develop a simple banking system with database.
@@ -13,8 +14,7 @@ If you’re curious about business, technology, or how things around you work, y
 
 Let's take a look at the anatomy of a credit card:
 
-https://lh3.googleusercontent.com/ZgkQv6hMeNkbBrSeSsnb2t6GLkawQFKJNaXapTAaFmy-WPWPPtFp5MpnvlzSFzn3R-0zAvOEUriCg6bGeX_stXdG8L0WSeASnwvqFLLFyeQO4JcbfH4yjh2QdHBEdQyZy2k72q4V
-
+<img src="https://user-images.githubusercontent.com/69895450/124097874-da326600-da10-11eb-9b8b-e071c1f16f84.png" alt="" width="500" height="300" style="max-width:100%;">
 The very first digit is the Major Industry Identifier (MII), which tells you what sort of institution issued the card.
 
 1 and 2 are issued by airlines
