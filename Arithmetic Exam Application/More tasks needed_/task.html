@@ -1,0 +1,40 @@
+<h2>Description</h2>
+
+<p>Let's write an application that assesses the user's knowledge.<br>
+Many people get nervous during exams; they can accidentally hit a wrong key, confuse <code class="java">,</code> with <code class="java">.</code> in floats, and so on. Our application should allow some room for errors and give a person the opportunity to correct the typo.</p>
+
+<h2>Objectives</h2>
+
+<ol>
+	<li>The application should give the user 5 tasks. The tasks are akin to the previous stage: two numbers from <code class="java">2</code> to <code class="java">9</code> and an integer operation.</li>
+	<li>The user receives one task, prints the answer. If the answer contains a typo (letters or otherwise empty), the program should print <code class="java">Incorrect format.</code> and ask to re-enter the answer. Repeat until the answer is in the correct format. If the answer is a number, print <code class="java">Right!</code> or <code class="java">Wrong!</code> depending on the answer and carry on to the next question.</li>
+	<li>After five tasks, output <code class="java">Your mark is n/5.</code> where <strong>n</strong><em> </em>is the number of correct answers.</li>
+</ol>
+
+<h2>Example</h2>
+
+<p>The greater-than symbol followed by a space (<code class="java">&gt; </code>) represents the user input. Note that it's not part of the input.</p>
+
+<p><strong>Example 1: </strong><em>An example of the output</em></p>
+
+<pre><code class="java">
+3 + 8
+&gt; 11q
+Incorrect format.
+&gt; eleven
+Incorrect format.
+&gt; 11
+Right!
+5 * 3
+&gt; 35
+Right!
+2 - 5
+&gt; -4
+Wrong!
+3 * 3
+&gt; 9
+Right!
+8 + 3
+&gt; 11
+Right!
+Your mark is 4/5.</code></pre>

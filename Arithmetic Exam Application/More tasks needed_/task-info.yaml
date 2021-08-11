@@ -1,0 +1,167 @@
+type: edu
+custom_name: More tasks needed!
+files:
+- name: arithmetic.py
+  visible: true
+  text: |
+    # write your code here
+  learner_created: false
+- name: tests.py
+  visible: false
+  text: |
+    from hstest.stage_test import *
+    from hstest import *
+
+
+    operations = ["+", "-", "*"]
+    wrong_format_msg = 'The task should have the following format: "number operation number"\n' \
+                       '(e.g. "4 + 2", without quotes).\n' \
+                       'However, the following output was found: '
+    corr_as_incorr_msg = 'The correct answer was given to the equation.\n' \
+                         'The app should print \'Right!\'. \n' \
+                         'However, this word was not found in the output.'
+    incorr_as_corr_msg = 'An incorrect answer was given to the equation.\n' \
+                         'The app should print \'Wrong!\'. \n' \
+                         'However, this word was not found in the output.'
+    typo_msg = "The app should inform the user that there's a typo in the answer by outputting a message: \'Wrong format\'."
+    incorrect_number_correct_answers_msg = "The number of correct answers is calculated incorrectly: \n"
+    no_mark_msg = "The final output doesn't contain count of correct answers: "
+
+
+    def calc(task: str) -> Optional[int]:
+        original_task = task
+        task = task.strip()
+        op = None
+        for i in operations:
+            if i in task:
+                op = i
+                break
+
+        if op is None:
+            return None
+        try:
+            task = task.split(op)
+            f = int(task[0].strip())
+            s = int(task[1].strip())
+        except ValueError:
+            return None
+        except IndexError:
+            raise WrongAnswer(f"The format of the task {original_task} does not follow the required format.\n"
+                              f"Please, print two numbers and an operation sign between them.")
+
+        if op == "+":
+            ans = f + s
+        elif op == "-":
+            ans = f - s
+        else:
+            ans = f * s
+        return ans
+
+
+    def check_and_solve_task(task):
+        if not any([i in task for i in operations]):
+            raise WrongAnswer(wrong_format_msg + task)
+
+        correct_ans = calc(task)
+
+        if correct_ans is None:
+            raise WrongAnswer(wrong_format_msg + task)
+
+        return correct_ans
+
+
+    class ExamTest(StageTest):
+        @dynamic_test
+        def test_correct(self):
+
+            pr = TestedProgram()
+
+            # 1 - ok
+            task = pr.start()
+            correct_ans = str(check_and_solve_task(task))
+            result = pr.execute(correct_ans).strip().lower()
+            if "right" not in result or "wrong" in result:
+                raise WrongAnswer(corr_as_incorr_msg + "\nThe task: " + task + '\nThe answer: ' + str(correct_ans))
+
+            # 2 - wrong format + ok
+            task = result.split('\n')
+            if len(task) < 2:
+                raise WrongAnswer("The number of lines in the output is less than expected.\n"
+                                  "Please make sure you output the result of the task and the new task on separate lines.")
+            task = task[1].strip()
+            correct_ans = check_and_solve_task(task)
+
+            result = pr.execute("11r").strip().lower()
+            if "format" not in result:
+                raise WrongAnswer(typo_msg)
+
+            result = pr.execute("").strip().lower()
+            if "format" not in result:
+                raise WrongAnswer(typo_msg)
+
+            result = pr.execute(str(correct_ans)).strip().lower()
+            if "right" not in result or "wrong" in result:
+                raise WrongAnswer(corr_as_incorr_msg + "\nThe task: " + task + '\nThe answer: ' + str(correct_ans))
+
+            # 3 - wrong answer
+            task = result.split('\n')
+            if len(task) < 2:
+                raise WrongAnswer("The number of lines in the output is less than expected.\n"
+                                  "Please make sure you output the result of the task and the new task on separate lines.")
+            task = task[1].strip()
+            incorrect_ans = check_and_solve_task(task) + 3
+            result = pr.execute(str(incorrect_ans)).strip().lower()
+            if "wrong" not in result:
+                raise WrongAnswer(incorr_as_corr_msg + "\nThe task: " + task + '\nThe answer: ' + str(incorrect_ans))
+
+            # 4 - ok
+            task = result.split('\n')
+            if len(task) < 2:
+                raise WrongAnswer("The number of lines in the output is less than expected.\n"
+                                  "Please make sure you output the result of the task and the new task on separate lines.")
+            task = task[1].strip()
+            correct_ans = check_and_solve_task(task)
+            result = pr.execute(str(correct_ans)).strip().lower()
+            if "right" not in result:
+                raise WrongAnswer(corr_as_incorr_msg + "\nThe task: " + task + 'The answer: ' + str(correct_ans))
+
+            # 5 - wrong
+            task = result.split('\n')
+            if len(task) < 2:
+                raise WrongAnswer("The number of lines in the output is less than expected.\n"
+                                  "Please make sure you output the result of the task and the new task on separate lines.")
+            task = task[1].strip()
+            incorrect_ans = check_and_solve_task(task) + 3
+            result = pr.execute(str(incorrect_ans)).strip().lower()
+            if "wrong" not in result:
+                raise WrongAnswer(incorr_as_corr_msg + "\nThe task:  " + task + '\nThe answer: ' + str(incorrect_ans))
+            final_output = result
+            result = result.replace(' ', '')
+
+            if "3/5" in result:
+                return CheckResult.correct()
+            elif "/5" in result:
+                return CheckResult.wrong(incorrect_number_correct_answers_msg + final_output)
+            else:
+                return CheckResult.wrong(no_mark_msg + final_output)
+
+        @dynamic_test
+        def test_negative_numbers(self):
+            # in case wrong using "isDigit()"
+            pr = TestedProgram()
+            pr.start()
+            result = pr.execute('-5').strip().lower()
+            if "format" in result:
+                raise WrongAnswer('The application says that a negative number has incorrect format.')
+            return CheckResult.correct()
+
+
+    if __name__ == '__main__':
+        ExamTest().run_tests()
+  learner_created: false
+feedback_link: https://hyperskill.org/projects/173/stages/895/implement#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Thu, 01 Jul 2021 20:05:59 UTC
+record: 3

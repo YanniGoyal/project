@@ -1,0 +1,7 @@
+type: framework
+content:
+- Mini-calculator
+- Task generator
+- More tasks needed_
+- Adding marks
+current_task: 3
