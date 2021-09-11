@@ -2,13 +2,9 @@
 > Here you can add channel and can do private chat with freinds by login
 > It send you message on your phone number when you are offline but don't forget while entering phone number , add country code in starting ilike  +91XXXXXXXXXX for india
 
+I have used bcrypt for hashed password in which this is the format:
 
-I have used bcrypt for hashed password 
-in which this is the format:
-
-> $2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy
-> \__/\/ \____________________/\_____________________________/
-> Alg Cost      Salt                        Hash
+__Example:__ $2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy
 
 Where:
   $2a$: The hash algorithm identifier (bcrypt)
