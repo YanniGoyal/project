@@ -6,9 +6,9 @@
 I have used bcrypt for hashed password 
 in which this is the format:
 
-$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy
-\__/\/ \____________________/\_____________________________/
-Alg Cost      Salt                        Hash
+> $2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy
+> \__/\/ \____________________/\_____________________________/
+> Alg Cost      Salt                        Hash
 
 Where:
   $2a$: The hash algorithm identifier (bcrypt)
